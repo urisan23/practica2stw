@@ -1,13 +1,22 @@
-<h2> Computer chooses:  <%= @computer_throw %> </h2>
-<h2> You choose: <%= @player_throw %> </h2>
-<h1> <%= @answer %> </h1>
-    
-<h2> Score <h2>
-
-<p> Player win: <%=h session[:win] || 0 %> </p>
-<p> Computer win: <%=h session[:loose] || 0 %> </p>
-<p> Tie: <%=h session[:tie] || 0 %> </p>
-
-<form method="post" action="/clear">
-  <input type="submit" value="Clear Session" />
-</form>
+%h2
+  Computer chooses:  #{@computer_throw}
+%h2
+  You choose: #{@player_throw}
+%h2
+  %font{:color => session[:color]}= @answer
+%h1
+  Score
+    %h3
+      Player: #{h session[:win] || 0}
+    %h3
+      Computer: #{h session[:loose] || 0}
+    %h3
+      Tie: #{h session[:tie] || 0}
+    %table
+      %tr
+        %td{:width => "100px"}
+          %form{:action => "/clear", :method => "post"}
+            %input{:type => "submit", :value => "Clear Score"}/
+        %td
+          %form{:action => "/", :method => "get"}
+            %input{:type => "submit", :value => "Play again"}/

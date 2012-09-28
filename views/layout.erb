@@ -1,9 +1,25 @@
 <html>
   <head>
     <title>Rock Paper Scissors</title>
-    <link rel="stylesheet" type="text/css" href="/style.css"> 
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"> 
   </head>
   <body>
+  <div width=300px float="left">
+    <header>
+     <table>
+      <tr>
+	<td width=100px><a href="/" title="Main page"> <img alt="logo" src="/images/rock.png" height=90px width="auto"> </a></td>
+	<td width=100px><a href="/" title="Main page"> <img alt="logo" src="/images/paper.png" height=90px width="auto"> </a></td>
+	<td><a href="/" title="Main page"> <img alt="logo" src="/images/scissors.png" height=90px width="auto"> </a></td>
+      </tr>
+      <tr>
+	<td><a href="/" title="Main page"> </a> Rock </td>
+	<td><a href="/" title="Main page"> </a> Paper </td>
+	<td><a href="/" title="Main page"> </a> Scissors </td>
+      </tr>
+     </table>
+    </header>
+    </div>	
     <%= yield %>
   </body>
 </html>

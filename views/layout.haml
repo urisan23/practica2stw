@@ -1,6 +1,20 @@
 %html
   %head
     %title Rock Paper Scissors
-    %link{:href => "/style.css", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "/stylesheets/style.css", :rel => "stylesheet", :type => "text/css"}
   %body
+    %div{:float => "left", :width => "300px"}
+      %header
+        %table
+          %tr
+            %td
+              %a{:href => "/", :title => "Main page"}
+                %img{:alt => "logo", :height => "90px", :src => "/images/rock.png", :width => "auto"}             
+              %a{:href => "/", :title => "Main page"}
+                %img{:alt => "logo", :height => "90px", :src => "/images/paper.png", :width => "auto"}             
+              %a{:href => "/", :title => "Main page"}
+                %img{:alt => "logo", :height => "90px", :src => "/images/scissors.png", :width => "auto"}           
+          %tr
+            %td
+              Rock, Paper, Scissors Game
     = yield

@@ -2,13 +2,17 @@ require 'sinatra'
 require 'erb'
 require 'haml'
 
+# Set the password of the cookie (optional)
 set :session_secret, ENV["SESSION_KEY"] || 'too secret'
 
 # before we process a route we'll set the response as plain text
 # and set up an array of viable moves that a player (and the
 # computer) can perform
+
+#enable sessions to use cookies on client side
 enable :sessions
 
+# helper for escape HTMLcode
 helpers do
   include Rack::Utils
   alias_method :h, :escape_html
@@ -20,47 +24,51 @@ before do
 end
 
 get '/' do
-  if session[:win] == nil
+  if session[:win] == nil # initialize cookie
     session[:win]=0
     session[:loose]=0
     session[:tie]=0
   end
-  erb :index, :locals => { :session => session }
+  haml :index, :locals => { :session => session }
 end
 
+#process the throw with the user option
 get '/throw/' do
-  texto = :option.to_s
+  texto = params[:option].to_s.downcase # Read option and convert to downcase
   texto.gsub!(/\?*\=/, '')
   # the params hash stores querystring and form data
-  @player_throw = params[texto.to_sym].to_sym
+  @player_throw = texto.to_sym # Convert text to search in hash the option
 
-  halt(403, "You must throw one of the following: '#{@throws.join(', ')}'") unless @throws.include? @player_throw
+  halt(403, "<meta http-equiv =\"refresh\", content =\"3; URL=/\"> <body> <h3>You must throw one of the following: '#{@throws.join(', ')}'</h3><h3>Redirecting to main page...</h3></body>") unless @throws.include? @player_throw
 
   @computer_throw = @throws.sample
 
   if @player_throw == @computer_throw 
     @answer = "There is a tie"
     session[:tie] += 1
-    erb :result, :locals => { :session => session }
+    session[:color]="#0000FF"
+    haml :result, :locals => { :session => session }
   elsif @player_throw == @defeat[@computer_throw]
     @answer = "Computer wins; #{@computer_throw} defeats #{@player_throw}"
     session[:loose] += 1
-    erb :result, :locals => { :session => session }
+    session[:color]="#FF0000"
+    haml :result, :locals => { :session => session }
   else
     @answer = "Well done. #{@player_throw} beats #{@computer_throw}"
     session[:win] += 1
-    erb :result, :locals => { :session => session }
+    session[:color]="#008000"
+    haml :result, :locals => { :session => session }
   end
 end
 
-post '/' do
+post '/' do # Set the values of the cookie
   session[:win]=0
   session[:loose]=0
   session[:tie]=0
   redirect '/'
 end
 
-post '/clear' do
+post '/clear' do # Reset the cookie and return to main page
   session.clear
   redirect '/'
 end

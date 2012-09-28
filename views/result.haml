@@ -2,16 +2,22 @@
   Computer chooses:  #{@computer_throw}
 %h2
   You choose: #{@player_throw}
-%h1
-  = @answer
 %h2
+  %font{:color => session[:color]}= @answer
+%h1
   Score
-  %h2
-    %p
-      Player win: #{h session[:win] || 0}
-    %p
-      Computer win: #{h session[:loose] || 0}
-    %p
+  %h1
+    %h3
+      Player: #{h session[:win] || 0}
+    %h3
+      Computer: #{h session[:loose] || 0}
+    %h3
       Tie: #{h session[:tie] || 0}
-    %form{:action => "/clear", :method => "post"}
-      %input{:type => "submit", :value => "Clear Session"}
+    %table
+      %tr
+        %td{:width => "100px"}
+          %form{:action => "/clear", :method => "post"}
+            %input{:type => "submit", :value => "Clear Score"}/
+        %td
+          %form{:action => "/", :method => "get"}
+            %input{:type => "submit", :value => "Play again"}/

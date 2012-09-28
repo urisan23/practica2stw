@@ -1,16 +1,21 @@
-<h1> Rock, Paper, Scissors </h1>
-
-<form name="form" action="/throw/" method="get">
-Write your option: <input type="text" name="option" />
-<input type="submit" value="Submit" />
-</form>
-
-<h2> Score <h2>
-
-<p> Player win: <%=h session[:win] || 0 %> </p>
-<p> Computer win: <%=h session[:loose] || 0 %> </p>
-<p> Tie: <%=h session[:tie] || 0 %> </p>
-
-<form method="post" action="/clear">
-  <input type="submit" value="Clear Session" />
-</form>
+%form{:action => "/throw/", :method => "get", :name => "form"}
+  What's your option?:
+  %input{:name => "option", :type => "text"}/
+  %input{:type => "submit", :value => "Play!"}/
+%h1
+  Score
+  %h1
+    %h3
+      Player: #{h session[:win] || 0}
+    %h3
+      Computer: #{h session[:loose] || 0}
+    %h3
+      Tie: #{h session[:tie] || 0}
+    %table
+      %tr
+        %td{:width => "100px"}
+          %form{:action => "/clear", :method => "post"}
+            %input{:type => "submit", :value => "Clear Score"}/
+        %td
+          %form{:action => "/", :method => "get"}
+            %input{:type => "submit", :value => "Play again"}/

@@ -1,0 +1,16 @@
+.h1 Rock, Paper, Scissors
+
+<form name="form" action="/throw/" method="get">
+Write your option: <input type="text" name="option" />
+<input type="submit" value="Submit" />
+</form>
+
+<h2> Score <h2>
+
+<p> Player win: <%=h session[:win] || 0 %> </p>
+<p> Computer win: <%=h session[:loose] || 0 %> </p>
+<p> Tie: <%=h session[:tie] || 0 %> </p>
+
+<form method="post" action="/clear">
+  <input type="submit" value="Clear Session" />
+</form>

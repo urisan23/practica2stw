@@ -1,0 +1,16 @@
+%h1 Rock, Paper, Scissors
+%form{:action => "/throw/", :method => "get", :name => "form"}
+  Write your option:
+  %input{:name => "option", :type => "text"}/
+  %input{:type => "submit", :value => "Submit"}/
+%h2
+  Score
+  %h2
+    %p
+      Player win: #{h session[:win] || 0}
+    %p
+      Computer win: #{h session[:loose] || 0}
+    %p
+      Tie: #{h session[:tie] || 0}
+    %form{:action => "/clear", :method => "post"}
+      %input{:type => "submit", :value => "Clear Session"}/

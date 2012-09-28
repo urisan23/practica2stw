@@ -1,0 +1,17 @@
+%h2
+  Computer chooses:  #{@computer_throw}
+%h2
+  You choose: #{@player_throw}
+%h1
+  = @answer
+%h2
+  Score
+  %h2
+    %p
+      Player win: #{h session[:win] || 0}
+    %p
+      Computer win: #{h session[:loose] || 0}
+    %p
+      Tie: #{h session[:tie] || 0}
+    %form{:action => "/clear", :method => "post"}
+      %input{:type => "submit", :value => "Clear Session"}

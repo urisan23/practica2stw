@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Rock Paper Scissors</title>
+  </head>
+  <body>
+    <h2> Computer chooses:  <%= @computer_throw %> </h2>
+    <h2> You choose: <%= @player_throw %> </h2>
+    <h1> <%= @answer %> </h1>
+    <h2> <a href="/">Try again!" </a></h2>
+    
+    <h1> Score </h1>
+
+    <h2> Player Wins: <%=h session[:win] || 0 %></h2>    
+    <h2> Computer Wins: <%=h session[:lose] || 0 %></h2>
+    <h2> Ties: <%=h session[:tie] || 0 %></h2>
+
+    <form method = "POST">
+       <input type="submit" value="Reset">
+    </form>
+
+  </body>
+</html>

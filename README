@@ -1,9 +1,5 @@
-- Use ruby 1.9.2 or later 
-- Optionally: Install rvm and learn to use it
-- Install  the following gems
-    gem install sinatra
-    gem install shotgun
-    gem install haml
-    gem install rails (not really necessary)
-- To see the options for the Rakefile run
-   rake -T
+Practica 2 - Rock, Paper, Scissors with score
+
+Extienda el ejemplo de Piedra, Papel, Tijeras para que ofrezca un marcador con el resultado de las partidas jugadas. 
+Añada una opción "reset" que situé el marcador a cero.
+Cambie los templates para usar haml. Véase también Sinatra intro.

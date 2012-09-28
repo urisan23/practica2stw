@@ -5,25 +5,20 @@ require 'erb'
 # and set up an array of viable moves that a player (and the
 # computer) can perform
 
-configure do
-	enable :sessions			# indicar persistencia!!! (cuanto duran las variables: la sesion, el coockie o hasta que se apague el servidors)
-end
+enable :sessions			# indicar persistencia!!! (cuanto duran las variables: la sesion, el coockie o hasta que se apague el servidors)
 
-helpers do
-	include Rack::Utils
-	alias_method :h, :escape_html
-end
+#use Rack::Session::Pool, :expire_after => 60
 
 before do
   @defeat = {rock: :scissors, paper: :rock, scissors: :paper}
   @throws = @defeat.keys
-  session[:ties] = "0"
 end
 
 get '\/' do
-	session[:value] = "-1" if session[:value].nil?
-	session[:value] = (session[:value].to_i + 1).to_s
-	@counter_total = session[:value]
+	session[:total] = "0" if session[:total].nil?
+	session[:wins] = "0" if session[:wins].nil?
+	session[:defeats] = "0" if session[:defeats].nil?
+	session[:ties] = "0" if session[:ties].nil?
 	erb :intro
 end
 
@@ -44,11 +39,21 @@ get '/throw/:type?' do
   if @player_throw == @computer_throw 
     @answer = "There is a tie"
 	 session[:ties] = (session[:ties].to_i + 1).to_s
-	 @counter_ties = session[:ties];
+	 
   elsif @player_throw == @defeat[@computer_throw]
     @answer = "Computer wins; #{@computer_throw} defeats #{@player_throw}"
+	 session[:defeats] = (session[:defeats].to_i + 1).to_s
+	 
   else
     @answer = "Well done. #{@player_throw} beats #{@computer_throw}"
+	 session[:wins] = (session[:wins].to_i + 1).to_s
   end
+  
+  session[:total] = (session[:total].to_i + 1).to_s
   erb :index
+end
+
+get '/logout' do
+	session.clear
+	redirect '/'
 end

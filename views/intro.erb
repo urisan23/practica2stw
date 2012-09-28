@@ -1,18 +1,16 @@
-<form name="input" action="/throw" method="get">
-  Your play: <input type="text" name="play" pattern="[^\s]{1,}"
-  title="Empty string doesn't allow!"/>
-  <input type="submit" value="Accept" />
-</form>
+<center>
+  <form name="input" action="/throw" method="get">
+    Your play: <input type="text" name="play" pattern="[^\s]{1,}"
+    title="Empty string doesn't allow!"/>
+    <input type="submit" value="Accept" />
+  </form>
+</center>
 
-Counters: 
-<ul>
-  <li> Wins: </li>
-  <li> Defeats: </li>
-  <li> Ties: <%= @counter_ties %> </li>
-</ul>
-
-<p> Total: <%= @counter_total %> </p>
-
-<form name="input" action="/" method="get">
-  <input type="submit" value="Reset" />
-</form>
+Scores: 
+  <ul>
+    <li> Wins: <%= session[:wins] %> </li>
+    <li> Defeats: <%= session[:defeats] %> </li>
+    <li> Ties: <%= session[:ties] %> </li>
+  </ul>
+<p> Total: <%= session[:total] %> </p>
+<h2> <a href="/logout"> Reset </a> </h2>

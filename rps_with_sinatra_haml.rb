@@ -1,13 +1,13 @@
 require 'sinatra'
-require 'erb'
+require 'haml'
 
 # before we process a route we'll set the response as plain text
 # and set up an array of viable moves that a player (and the
 # computer) can perform
 
-enable :sessions			# indicar persistencia!!! (cuanto duran las variables: la sesion, el coockie o hasta que se apague el servidors)
-
-#use Rack::Session::Pool, :expire_after => 60
+configure do
+	enable :sessions
+end
 
 before do
   @defeat = {rock: :scissors, paper: :rock, scissors: :paper}
@@ -19,7 +19,7 @@ get '\/' do
 	session[:wins] = "0" if session[:wins].nil?
 	session[:defeats] = "0" if session[:defeats].nil?
 	session[:ties] = "0" if session[:ties].nil?
-	erb :intro
+	haml :intro
 end
 
 get '/throw' do
@@ -41,16 +41,16 @@ get '/throw/:type?' do
 	 session[:ties] = (session[:ties].to_i + 1).to_s
 	 
   elsif @player_throw == @defeat[@computer_throw]
-    @answer = "Computer wins; #{@computer_throw} defeats #{@player_throw}"
+    @answer = "Computer wins, #{@computer_throw} defeats #{@player_throw}"
 	 session[:defeats] = (session[:defeats].to_i + 1).to_s
 	 
   else
-    @answer = "Well done. #{@player_throw} beats #{@computer_throw}"
+    @answer = "Well done, #{@player_throw} beats #{@computer_throw}"
 	 session[:wins] = (session[:wins].to_i + 1).to_s
   end
   
   session[:total] = (session[:total].to_i + 1).to_s
-  erb :index
+  haml :index
 end
 
 get '/logout' do

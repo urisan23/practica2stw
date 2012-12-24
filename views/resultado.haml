@@ -10,9 +10,11 @@
         Tu elección: #{@player_throw}
       %h1.promo
         = @answer
-      %h2.box1
-        Victorias:  #{session[:win]}
-      %h2.box1
-        Empates:  #{session[:tie]}
-      %h2.box1
-        Derrotas:  #{session[:lose]}
+      %form{:action => "/", :method => "GET"}
+        %h2
+          Victorias:  #{session[:win]}
+        %h2
+          Empates:  #{session[:tie]}
+        %h2
+          Derrotas:  #{session[:lose]}
+        %input{:type => "submit", :value => "Volver a jugar"}/

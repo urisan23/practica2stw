@@ -11,11 +11,11 @@
             %input{:name => "option", :type => "text"}
               %br
                 %input{:type => "submit", :value => "Submit"}/
-      %h2.box1
-        Victorias:  #{session[:win]}
-      %h2.box1
-        Empates:  #{session[:tie]}
-      %h2.box1
-        Derrotas:  #{session[:lose]}
       %form{:action => "/clear", :method => "GET"}
+        %h2
+          Victorias:  #{session[:win]}
+        %h2
+          Empates:  #{session[:tie]}
+        %h2
+          Derrotas:  #{session[:lose]}
         %input{:type => "submit", :value => "Reset"}/

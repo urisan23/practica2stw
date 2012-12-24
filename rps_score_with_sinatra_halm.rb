@@ -1,21 +1,16 @@
 require 'sinatra'
 require 'haml'
 
-#use Rack::Session::Pool, :expire_after => 2592000
-set :session_secret, ENV["SESSION_KEY"] || 'too secret'
-
-configure do
-  enable :sessions
-end
+enable :sessions
 
 before do
   @defeat = { rock: :scissors, paper: :rock, scissors: :paper}
   @throws = @defeat.keys
-  @score = {win: 0, tie: 0, lose: 0}
 end
 
 get '/' do
-  if session[:win] == nil 
+  if session[:state] == nil
+    session[:state] = 1 
     session[:win] = 0
     session[:tie] = 0
     session[:lose] = 0  
@@ -38,15 +33,12 @@ get '/throw/' do
 
   if @player_throw == @computer_throw 
     @answer = "Se ha producido un empate."
-    @score[:tie] += 1
     session[:tie] += 1
   elsif @player_throw == @defeat[@computer_throw]
     @answer = "El ordenador gana; #{@computer_throw} derrota a #{@player_throw}."
-    @score[:lose] += 1
     session[:lose] += 1
   else
     @answer = "Muy bien. #{@player_throw} vence a #{@computer_throw}."
-    @score[:win] += 1
     session[:win] += 1
   end
   haml :resultado

@@ -1,0 +1,13 @@
+%html
+  %head
+    %title Rock Paper Scissors
+  %body
+    %center
+      %h1.title Rock, Paper, Scissors
+      %img{:align => "middle", :border => "2", :height => "200", :src => "http://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Piedra_papel_tijeras.jpg/250px-Piedra_papel_tijeras.jpg", :width => "250"}
+        %form{:action => "/throw/", :method => "get", :name => "form"}
+          %h3
+            Elije (rock, paper, scissors):
+            %input{:name => "option", :type => "text"}
+              %br
+                %input{:type => "submit", :value => "Submit"}/

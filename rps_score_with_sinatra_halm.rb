@@ -43,3 +43,4 @@ get '/throw/' do
   end
   haml :resultado
 end
+
